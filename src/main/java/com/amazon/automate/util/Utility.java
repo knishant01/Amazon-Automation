@@ -25,7 +25,7 @@ import org.apache.log4j.Logger;
 import com.amazon.automate.script.AssignmentAmazon;
 
 /**
- * @author KNISHANT
+ * @author NISHANT
  *
  */
 public class Utility {
@@ -36,7 +36,7 @@ public class Utility {
 	private static final String WEBDRIVER_IE_DRIVER = "webdriver.ie.driver";
 	private static final Logger LOGGER = Logger.getLogger(Utility.class);
 	static List<String>  nameList = null;
-	
+	static Properties props = null;
 	public static Properties readfilefromPathUtil() throws Exception {
 		Properties prop = null;
 		// TODO Auto-generated method stub
@@ -61,36 +61,31 @@ public class Utility {
 	}
 	
 	public static WebDriver setup(String browser) throws Exception {
-		// Check if parameter passed from TestNG is 'firefox'
+		
 		if (browser.equalsIgnoreCase("firefox")) {
-			Properties props = Utility.readfilefromPathUtil();
+			 props = Utility.readfilefromPathUtil();
 
 			System.setProperty(WEBDRIVER_FIREFOX_DRIVER, props.getProperty("webdriver.firefox.driver"));
 
-			// create firefox instance
 			return new FirefoxDriver();
 		}
-		// Check if parameter passed as 'chrome'
+		
 		else if (browser.equalsIgnoreCase("chrome")) {
-			// set path to chromedriver.exe
-			Properties props = Utility.readfilefromPathUtil();
+			props = Utility.readfilefromPathUtil();
 
 			System.setProperty(WEBDRIVER_CHROME_DRIVER, props.getProperty("webdriver.chrome.driver"));
 
-			// create chrome instance
 			return new ChromeDriver();
 		}
-		// Check if parameter passed as 'IE'
+		
 		else if (browser.equalsIgnoreCase("ie")) {
-			// set path to IE.exe
-			Properties props = Utility.readfilefromPathUtil();
+			
+			 props = Utility.readfilefromPathUtil();
 
 			System.setProperty(WEBDRIVER_IE_DRIVER, props.getProperty("webdriver.ie.driver"));
 
-			// create IE instance
 			return new InternetExplorerDriver();
 		} else {
-			// If no browser passed throw exception
 			throw new Exception("Browser is not correct");
 		}
 
@@ -122,83 +117,81 @@ public class Utility {
     }
     
     public static void primeEnabled(WebDriver driver) {
-    	driver.findElement(By.xpath("//li[@aria-label='Prime Eligible' and @class='a-spacing-micro']//span[@class='a-list-item']//a//div//label//i")).click();
+		LOGGER.info("==========================Prime Enabled Functionality=================================");
+		driver.findElement(By.xpath(
+				"//li[@aria-label='Prime Eligible' and @class='a-spacing-micro']//span[@class='a-list-item']//a//div//label//i"))
+				.click();
 		if (driver.findElement(By.xpath("//span[@class='aok-inline-block s-image-logo-view'][1]")).isDisplayed()) {
-			System.out.println("Prime Enabeled");
-
+			LOGGER.info("==========================Prime Enabled=================================");
 		} else {
-			System.out.println("Prime Not Enabeled");
-			takeSnapShot(driver,"C:/Users/knishant/Downloads/Prime_Not_Enabled.png");
+			LOGGER.info("==========================Prime Not Enabeled=================================");
+			takeSnapShot(driver, props.getProperty("screenshot.download") + "/Prime_Not_Enabled.png");
 
 		}
     }
     
     public static void primeDisabled(WebDriver driver) {
     	
-    	driver.findElement(By.xpath("//li[@aria-label='Prime Eligible' and @class='a-spacing-micro']//span[@class='a-list-item']//a//div//label//i")).click();
-     	
-     	if(driver.findElement(By.xpath("//span[@class='aok-inline-block s-image-logo-view'][1]")).isDisplayed())
-    	{
-    	System.out.println("Prime Disabled");
-    	
-    	}
-    	else
-    	{
-    	System.out.println("Prime Enabled");
-    	takeSnapShot(driver,"C:/Users/knishant/Downloads/Prime_Enabled.png");
-    	}
+		LOGGER.info("==========================Prime Disabled Functionality=================================");
+		driver.findElement(By.xpath(
+				"//li[@aria-label='Prime Eligible' and @class='a-spacing-micro']//span[@class='a-list-item']//a//div//label//i"))
+				.click();
+
+		if (driver.findElement(By.xpath("//span[@class='aok-inline-block s-image-logo-view'][1]")).isDisplayed()) {
+			LOGGER.info("==========================Prime Disabled=================================");
+		} else {
+
+			LOGGER.info("==========================Prime Enabeled=================================");
+			takeSnapShot(driver, props.getProperty("screenshot.download") + "/Prime_Enabled.png");
+		}
     }
     
     public static void sortItems(WebDriver driver) {
-      nameList = null;
-      List<Integer> myList = new ArrayList<Integer>();
-      nameList = new ArrayList<String>();
- 	  driver.findElement(By.className("a-dropdown-prompt")).click();
- 	  driver.findElement(By.xpath("//li[@aria-labelledby='s-result-sort-select_1']")).click();
- 	  
- 	
+		nameList = null;
+		List<Integer> myList = new ArrayList<Integer>();
+		nameList = new ArrayList<String>();
+		driver.findElement(By.className("a-dropdown-prompt")).click();
+		driver.findElement(By.xpath("//li[@aria-labelledby='s-result-sort-select_1']")).click();
 
-	 List<WebElement> productNames = driver.findElements(By.xpath("//span[@class='a-size-medium a-color-base a-text-normal']"));
+		List<WebElement> productNames = driver
+				.findElements(By.xpath("//span[@class='a-size-medium a-color-base a-text-normal']"));
 
-     for(WebElement productName:productNames) {
-    	 nameList.add(productName.getText());
-     }
-     
+		for (WebElement productName : productNames) {
+			nameList.add(productName.getText());
+		}
 
-		 
-     List<WebElement> productPrices = driver.findElements(By.xpath("//span[@class='a-price-whole']"));
-		
-     for(WebElement productPrice:productPrices) {
-    	 myList.add(Integer.parseInt(productPrice.getText()));
-     }
- 	  
-     List tmp = new ArrayList(myList);
-     Collections.sort(tmp);
-     boolean sorted = tmp.equals(myList);
-     if(!sorted) {
-    	 Utility.takeSnapShot(driver,"C:/Users/knishant/Downloads/ItemNotSorted.png");
-     }
- 	 
-     for(int i=0;i<10;i++) {
-    	 LOGGER.info("Product Name ==>"+nameList.get(i)+"##########"+"Product Price ==>"+myList.get(i));
-    	 
-     }
+		List<WebElement> productPrices = driver.findElements(By.xpath("//span[@class='a-price-whole']"));
+
+		for (WebElement productPrice : productPrices) {
+			String str = productPrice.getText();
+			String replaceChar = str.replace(",", "");
+			myList.add(Integer.parseInt(replaceChar));
+		}
+
+		List tmp = new ArrayList(myList);
+		Collections.sort(tmp);
+		boolean sorted = tmp.equals(myList);
+		if (!sorted) {
+			LOGGER.info("============Items are listed according to the ascending order of the price============");
+			Utility.takeSnapShot(driver, props.getProperty("screenshot.download") + "/ItemNotSorted.png");
+		}
+
+		for (int i = 0; i < 10; i++) {
+			LOGGER.info("Product Name ==>" + nameList.get(i) + "##########" + "Product Price ==>" + myList.get(i));
+
+		}
  	  
     }
     
     public static void takeSnapShot(WebDriver webdriver,String fileWithPath){
 
-        //Convert web driver object to TakeScreenshot
+        
         TakesScreenshot scrShot =((TakesScreenshot)webdriver);
 
-        //Call getScreenshotAs method to create image file
         File SrcFile=scrShot.getScreenshotAs(OutputType.FILE);
-        //System.out.println(SrcFile.getAbsolutePath());
-        //Move image file to new destination
+      
         File DestFile=new File(fileWithPath);
-        //System.out.println(DestFile.getPath());
-
-        //Copy file at destination
+        
         try {
             FileUtils.copyFile(SrcFile, DestFile);
         }catch (IOException e) {
@@ -210,14 +203,12 @@ public class Utility {
 	public static void addToCart(WebDriver driver) {
 		
 		driver.findElement(By.xpath("//span[contains(text(),'"+nameList.get(0)+"')]")).click();
-		//driver.findElement(By.xpath("//input[@title='Add to Shopping Cart']")).click();
-		//driver.close();
 		
 		driver.findElement(By.xpath("//span[contains(text(),'"+nameList.get(1)+"')]")).click();
 		
 		 String MainWindow=driver.getWindowHandle();		
  		
-	        // To handle all new opened window.				
+	     // To handle all new opened window.				
 	     Set<String> s1=driver.getWindowHandles();		
 	     Iterator<String> i1=s1.iterator();		
 	        		
@@ -232,7 +223,7 @@ public class Utility {
 	                    driver.switchTo().window(ChildWindow);	                                                                                                           
 	                    driver.findElement(By.xpath("//input[@title='Add to Shopping Cart']")).click();	
 	                                 
-				// Closing the Child Window.
+				         // Closing the Child Window.
 	                        driver.close();		
 	            }		
 	        }
@@ -240,11 +231,11 @@ public class Utility {
 	        driver.findElement(By.xpath("//a[@id='nav-cart']")).click();	
 	        String itemCount = driver.findElement(By.xpath("//span[@class='nav-cart-count nav-cart-1']")).getText();
 	        if(itemCount.equalsIgnoreCase(itemCount)) {
-	        	takeSnapShot(driver,"C:/Users/knishant/Downloads/Item_added_Successfully.png");
+	        	takeSnapShot(driver,props.getProperty("screenshot.download")+"/Item_added_Successfully.png");
 	        }
 	        else
 	        {
-	        	takeSnapShot(driver,"C:/Users/knishant/Downloads/Item_added_Failed.png");
+	        	takeSnapShot(driver,props.getProperty("screenshot.download")+"/Item_added_Failed.png");
 	        }
 	        
 		
