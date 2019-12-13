@@ -15,8 +15,8 @@
 
 # Execution :
 # we have checked-in execute jar file in the given  repo path ://github.com/knishant01/Amazon-Automation/tree/master/src/main/java
-# for executing it run command from window cmd : java -jar AmazonAutomation-0.0.1-SNAPSHOT-jar-with-dependencies.jar
-# before excuting aboove cmd please change below path in the config.properties file and log4j.properties
+# for executing it, please run command from window cmd : java -jar AmazonAutomation-0.0.1-SNAPSHOT-jar-with-dependencies.jar
+# before excuting above cmd please change below path in the config.properties file and log4j.properties
 # wedriver.chrome.driver=C:/Users/knishant/Downloads/chromedriver_win32/chromedriver.exe
 # screenshot.download=C:/Users/knishant/Downloads
 # log4j.appender.file.File=C:/Users/knishant/Downloads/logging.log
