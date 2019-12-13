@@ -72,8 +72,18 @@ public class AssignmentAmazon
 		 */
 		
  	     Utility.primeDisabled(driver);
+ 	     /*
+ 	      * 
+ 	      * Sort by ‘Low to High’ and see if the list of items are sorted accordingly in that page. i.e check if the. 
+ 	      * [print :first 5-10 products name with price in ascending order, as they appear]
+ 	      */
  	     
  	     Utility.sortItems(driver);
+ 	     
+ 	     /*
+ 	      * Select any two items and add to cart. 
+ 	      * Verify the count in cart is reflecting properly and check if the two items that were selected is present in the cart
+ 	      */
  	     Utility.addToCart(driver);
  	     
  	     
