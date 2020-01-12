@@ -8,7 +8,7 @@ whenever we need to automate a web based application, we would not need to start
 but use the application independent keyword components to the extent possible and create application specific components for the specific needs.
 
 # Prerequisites:
-Java jdk-1.8,
+Java jdk-1.8__
 Apache Maven 3,
 Selenium  3.141.59,
 log4j 1.2.17
