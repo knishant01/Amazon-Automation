@@ -14,14 +14,13 @@ Selenium  3.141.59\
 log4j 1.2.17
 
 # Execution :
-# we have checked-in execute jar file in the given  repo path ://github.com/knishant01/Amazon-Automation/tree/master/src/main/java
-# for executing it, please run command from window cmd : java -jar AmazonAutomation-0.0.1-SNAPSHOT-jar-with-dependencies.jar
-# before excuting above cmd please change below path in the config.properties file and log4j.properties
-# wedriver.chrome.driver=C:/Users/knishant/Downloads/chromedriver_win32/chromedriver.exe
-# screenshot.download=C:/Users/knishant/Downloads
-# log4j.appender.file.File=C:/Users/knishant/Downloads/logging.log
-# above cmd will successfully run amazon automation with selemium script.
+we have checked-in execute jar file in the given  repo path ://github.com/knishant01/Amazon-Automation/tree/master/src/main/java\
+for executing it, please run command from window cmd : java -jar AmazonAutomation-0.0.1-SNAPSHOT-jar-with-dependencies.jar
+before excuting above cmd please change below path in the config.properties file and log4j.properties\
+wedriver.chrome.driver=C:/Users/knishant/Downloads/chromedriver_win32/chromedriver.exe\
+screenshot.download=C:/Users/knishant/Downloads\
+log4j.appender.file.File=C:/Users/knishant/Downloads/logging.log\
+above cmd will successfully run amazon automation with selemium script.\
 
 # Results :
-
-# All the required results have been attached in the git repo including screenshot and logs file
+All the required results have been attached in the git repo including screenshot and logs file
